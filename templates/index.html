@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>DevOps Todo App</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 520px;
+      margin: 50px auto;
+      padding: 0 20px;
+      background: #f8f9fa;
+    }
+    h1 { font-size: 24px; margin-bottom: 20px; color: #333; }
+    .add-form { display: flex; gap: 8px; margin-bottom: 24px; }
+    .add-form input {
+      flex: 1; padding: 10px 14px;
+      font-size: 15px; border: 1px solid #ddd;
+      border-radius: 8px; outline: none;
+    }
+    .add-form button {
+      padding: 10px 20px; font-size: 15px;
+      background: #2563eb; color: white;
+      border: none; border-radius: 8px; cursor: pointer;
+    }
+    .todo-item {
+      display: flex; align-items: center; gap: 10px;
+      background: white; padding: 12px 16px;
+      border-radius: 8px; margin-bottom: 8px;
+      border: 1px solid #eee;
+    }
+    .todo-item span { flex: 1; font-size: 15px; }
+    .done-text { text-decoration: line-through; color: #999; }
+    a.action {
+      font-size: 12px; padding: 4px 10px;
+      border-radius: 6px; text-decoration: none;
+      background: #f1f5f9; color: #555;
+    }
+    a.action:hover { background: #e2e8f0; }
+  </style>
+</head>
+<body>
+  <h1>My Todo List</h1>
+
+  <form class="add-form" action="/add" method="POST">
+    <input type="text" name="task" placeholder="নতুন task লেখো..." required>
+    <button type="submit">Add</button>
+  </form>
+
+  {% for todo in todos %}
+  <div class="todo-item">
+    <span class="{{ 'done-text' if todo.done }}">{{ todo.task }}</span>
+    <a class="action" href="/toggle/{{ todo.id }}">
+      {{ 'Undo' if todo.done else 'Done' }}
+    </a>
+    <a class="action" href="/delete/{{ todo.id }}">Delete</a>
+  </div>
+  {% endfor %}
+
+  {% if not todos %}
+  <p style="color:#999;text-align:center;margin-top:40px">কোনো task নেই। উপরে add করো!</p>
+  {% endif %}
+
+</body>
+</html>
