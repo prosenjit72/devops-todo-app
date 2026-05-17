@@ -9,20 +9,13 @@ A simple Todo web application built with Flask and PostgreSQL, containerized wit
 - **Containerization:** Docker, Docker Compose
 
 ## 📁 Project Structure
-devops-todo-app/
-├── app.py                # Flask application
-├── Dockerfile            # Docker image instructions
-├── docker-compose.yml    # Multi-container setup
-├── requirements.txt      # Python dependencies
-└── templates/
-└── index.html        # Frontend
 ## 🚀 How to Run
 
 **Prerequisites:** Docker Desktop installed and running.
 
 ```bash
 # Clone the repository
-git clone git@github.com:YOUR_USERNAME/devops-todo-app.git
+git clone git@github.com:prosenjit72/devops-todo-app.git
 cd devops-todo-app
 
 # Run with Docker Compose
