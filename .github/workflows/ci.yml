@@ -1,0 +1,46 @@
+# Workflow এর নাম — GitHub Actions tab এ দেখাবে
+name: CI Pipeline
+
+# কখন চলবে — main branch এ push হলে
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # Job 1: Test
+  test:
+    runs-on: ubuntu-latest    # GitHub এর Ubuntu server এ চলবে
+
+    steps:
+      # Step 1: Code নামাও
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Python setup করো
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Step 3: Dependencies install করো
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Step 4: Basic import test
+      - name: Test app imports
+        run: python -c "from app import app; print('App imported successfully')"
+
+  # Job 2: Docker build
+  docker:
+    runs-on: ubuntu-latest
+    needs: test    # test job সফল হলেই এটা চলবে
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Docker image build করো
+      - name: Build Docker image
+        run: docker build -t todo-app:latest .
